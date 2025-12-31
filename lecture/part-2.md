@@ -100,3 +100,6 @@ kubectl logs multi-container-pod -c log-sidecar
 # 3. 파드 종료
 kubectl delete -f multi-container-pod.yaml
 ```
+
+***
+#### [이전 페이지로](https://github.com/hikigirl/bep4-1-k8s-mission)

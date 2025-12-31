@@ -43,3 +43,71 @@ kubectl delete -f nginx-deployment.yaml
 # 또는
 kubectl delete deployment nginx-deployment
 ```
+
+### 0007: 스케일링
+- 스케일링이란? 트래픽에 따라 서버 인스턴스를 조절하는 것
+- 스케일링의 종류
+  - 수평 스케일링(Horizontal): 인스턴스 **개수**를 늘림 => **쿠버네티스는 수평에 특화**
+  - 수직 스케일링(Vertical): 인스턴스 **성능**을 높임
+
+작업1: 수동 스케일링
+```bash
+# Deployment 생성
+kubectl apply -f nginx-deployment.yaml
+
+# replicas 수 변경 (3 → 5)
+kubectl scale deployment nginx-deployment --replicas=5
+
+# Pod 변화 확인 (실시간)
+kubectl get pods -l app=nginx -w
+
+# Deployment 상태 확인
+kubectl get deployment nginx-deployment
+
+# 스케일 다운
+kubectl scale deployment nginx-deployment --replicas=2
+```
+
+작업2: yaml 수정으로 스케일링
+```yaml
+# nginx-deployment.yaml을 수정
+spec:
+  replicas: 4    # 3 → 4로 변경
+```
+
+```bash
+# 변경 적용
+kubectl apply -f nginx-deployment.yaml
+
+# 확인
+kubectl get deployment nginx-deployment
+```
+
+작업3: 자동 복구 테스트
+```bash
+# 현재 Pod 목록 확인
+kubectl get pods -l app=nginx
+
+# Pod 하나를 강제 삭제
+kubectl delete pod <pod-name>
+kubectl delete pod nginx-deployment-7c9dddfb48-7ljxk
+
+# 즉시 확인 - 새 Pod가 자동 생성
+kubectl get pods -l app=nginx
+```
+
+자원 정리
+```bash
+# Deployment 삭제 (관련 ReplicaSet, Pod도 자동 삭제)
+kubectl delete -f nginx-deployment.yaml
+# 또는
+kubectl delete deployment nginx-deployment
+```
+
+***
+#### [이전 페이지로](https://github.com/hikigirl/bep4-1-k8s-mission)
+<!-- 
+```bash
+
+```
+ -->

@@ -38,3 +38,6 @@ delete|삭제
 apply|생성/수정
 logs|로그 확인
 exec|실행
+
+***
+#### [이전 페이지로](https://github.com/hikigirl/bep4-1-k8s-mission)
