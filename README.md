@@ -4,7 +4,7 @@
 - Docker Desktop에서 쿠버네티스 사용 설정 필요
 
 ### 0002: kubectl 기본 명령어
-``` Bash
+```bash
 # 노드 목록 확인
 kubectl get nodes
 
@@ -49,7 +49,7 @@ exec|실행
   - Pod는 임시적, 삭제되면 데이터도 소멸
 
 작업 1
-``` Bash
+```bash
 # nginx Pod 생성
 kubectl run nginx-pod --image=nginx:latest
 
@@ -64,9 +64,9 @@ kubectl describe pod nginx-pod
 ```
 
 작업 2
-``` bash
+```bash
 # Pod 내부 쉘 접속
-kubectl exec -it nginx-pod -- bash
+kubectl exec -it nginx-pod --bash
 
 # nginx 설정 파일 확인
 cat /etc/nginx/nginx.conf
@@ -104,4 +104,36 @@ kubectl delete -f nginx-pod.yaml
 # 특정 라벨로 Pod 필터링
 kubectl get pods -l app=nginx
 kubectl get pods -l environment=dev
+```
+
+### 0005: multi-container pod
+- 멀티 컨테이너 패턴
+  - 사이드카: 메인 앱을 보조
+  - 앰버서더: 외부 통신을 대리
+  - 어댑터: 출력을 변환
+
+작업1: 사이드카 패턴 pod 작성, nginx와 로그 수집기
+- `multi-container-pod.yaml` 작성
+
+작업2: multi container pod 실행
+```bash
+# Pod 생성
+kubectl apply -f multi-container-pod.yaml
+
+# Pod 상태 확인 - READY 열에 2/2 표시
+kubectl get pods
+
+# 특정 컨테이너 로그 확인
+kubectl logs multi-container-pod -c log-sidecar
+```
+- 테스트해보기
+``` bash
+# 1. nginx에 접속 요청 생성 (로그 발생)
+kubectl exec multi-container-pod -c main-app -- curl localhost
+
+# 2. 사이드카에서 로그 확인
+kubectl logs multi-container-pod -c log-sidecar
+
+# 3. 파드 종료
+kubectl delete -f multi-container-pod.yaml
 ```
