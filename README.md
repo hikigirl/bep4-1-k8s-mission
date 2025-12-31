@@ -1,6 +1,7 @@
-# p-14653-1-mission
+# p-14653-1-mission: 쿠버네티스 기초
 
 ### 0001: 쿠버네티스 클러스터 준비
+- Docker Desktop에서 쿠버네티스 사용 설정 필요
 
 ### 0002: kubectl 기본 명령어
 ``` Bash
@@ -23,6 +24,18 @@ kubectl get ns
 # 특정 네임스페이스의 모든 리소스
 kubectl get all -n kube-system
 ```
+
+**참고: 자주 쓰는 명령어**
+
+명령어|의미
+---|---
+get|목록 조회
+describe|상세 정보
+create|생성
+delete|삭제
+apply|생성/수정
+logs|로그 확인
+exec|실행
 
 ---
 
@@ -66,4 +79,29 @@ kubectl logs nginx-pod
 
 # Pod 삭제
 kubectl delete pod nginx-pod
+```
+
+### 0004: yaml 파일로 Pod 정의
+작업 1: pod yaml 파일 작성
+```bash
+# yaml 파일 작성
+vi nginx-pod.yaml
+```
+작업 2: 선언형 방식으로 Pod 관리
+```bash
+# Pod 생성
+kubectl apply -f nginx-pod.yaml
+
+# Pod 상태 확인 (-o wide로 더 많은 정보)
+kubectl get pods -o wide
+
+# Pod YAML 확인 (Kubernetes가 추가한 정보 포함)
+kubectl get pod nginx-pod -o yaml
+
+# Pod 삭제 (파일 기반)
+kubectl delete -f nginx-pod.yaml
+
+# 특정 라벨로 Pod 필터링
+kubectl get pods -l app=nginx
+kubectl get pods -l environment=dev
 ```
