@@ -104,6 +104,46 @@ kubectl delete -f nginx-deployment.yaml
 kubectl delete deployment nginx-deployment
 ```
 
+### 0008: 롤링 업데이트
+- 한번에 모든 파드를 교체하지 않고 하나씩 교체
+- 장점
+  - 무중단 배포: 항상 일부 pod가 서비스 중
+  - 안전한 배포: 문제 발생 시 롤백 가능
+  - 점진적 검증: 새 버전이 안정적인지 확인하면서 배포
+
+작업 1: 이미지 버전 업데이트
+```bash
+# Deployment 생성
+kubectl apply -f nginx-deployment.yaml
+
+# nginx 버전 업데이트 (1.25 → 1.26)
+kubectl set image deployment/nginx-deployment nginx=nginx:1.26
+
+# 롤아웃 상태 확인 (실시간)
+kubectl rollout status deployment/nginx-deployment
+
+# ReplicaSet 확인
+kubectl get rs
+
+# 업데이트 이력 확인
+kubectl rollout history deployment/nginx-deployment
+
+# CHANGE-CAUSE를 기록하려면
+kubectl annotate deployment/nginx-deployment kubernetes.io/change-cause="Update to nginx 1.26"
+```
+
+작업 2: 롤백 (Rollback)
+```bash
+# 이전 버전으로 롤백
+kubectl rollout undo deployment/nginx-deployment
+
+# 특정 리비전으로 롤백
+kubectl rollout undo deployment/nginx-deployment --to-revision=2
+
+# 롤백 확인
+kubectl describe deployment nginx-deployment
+```
+
 ***
 #### [이전 페이지로](https://github.com/hikigirl/bep4-1-k8s-mission)
 <!-- 
