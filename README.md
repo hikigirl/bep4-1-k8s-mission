@@ -18,4 +18,7 @@
 ### [9강 ~ 11강](lecture/part-4.md)
 
 ## Part 5. ConfigMap과 Secret
-### [12강 ~ n강](lecture/part-5.md)
+### [12강 ~ 13강](lecture/part-5.md)
+
+## Part 6. 스토리지
+### [14강 ~ 15강](lecture/part-6.md)
