@@ -49,6 +49,34 @@ kubectl delete -f nginx-service-clusterip.yaml
 # 또는
 kubectl delete service nginx-service
 ```
+
+### 0010: NodePort Service
+- ClusterIP는 클러스터 내부에서만 접근 가능
+- 외부에서 접근하려면 NodePort를 사용
+- 특징
+  - 모든 노드의 특정 포트를 개방
+  - 범위: 30000~32767
+  - 어떤 노드로 접속해도 같은 서비스에 연결
+
+작업1: NodePort Service 생성
+- `nginx-service-nodeport.yaml` 생성
+
+작업2: NodePort로 외부 접근
+```bash
+# Deployment가 없다면 먼저 생성
+kubectl apply -f nginx-deployment.yaml
+kubectl get pods -l app=nginx  # Running 상태 확인
+
+# Service 생성
+kubectl apply -f nginx-service-nodeport.yaml
+
+# Service 확인
+kubectl get service nginx-nodeport
+
+# 터미널에서 테스트
+curl http://localhost:30080
+```
+
 ***
 #### [이전 페이지로](https://github.com/hikigirl/bep4-1-k8s-mission)
 
