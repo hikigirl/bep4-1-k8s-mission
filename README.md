@@ -21,4 +21,7 @@
 ### [12강 ~ 13강](lecture/part-5.md)
 
 ## Part 6. 스토리지
-### [14강 ~ 15강](lecture/part-6.md)
+### [14강](lecture/part-6.md)
+
+## Part 7. 실전 애플리케이션 배포
+### [15강](lecture/part-7.md)

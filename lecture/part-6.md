@@ -47,9 +47,12 @@ kubectl exec pvc-pod -- cat /usr/share/nginx/html/index.html
 # 출력: Hello K8s  ← 데이터 유지! 🎉
 ```
 
-
-### 0015: 
-
+```bash
+# 정리
+kubectl delete pod pvc-pod
+kubectl delete pvc local-pvc
+kubectl delete pv local-pv
+```
 
 ***
 #### [이전 페이지로](https://github.com/hikigirl/bep4-1-k8s-mission)
