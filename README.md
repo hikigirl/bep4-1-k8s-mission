@@ -15,4 +15,7 @@
 ### [6강 ~ 8강](lecture/part-3.md)
 
 ## Part 4. Service
-### [9강 ~ n강](lecture/part-4.md)
+### [9강 ~ 11강](lecture/part-4.md)
+
+## Part 5. ConfigMap과 Secret
+### [12강 ~ n강](lecture/part-5.md)
