@@ -12,4 +12,7 @@
 ### [3강 ~ 5강](lecture/part-2.md)
 
 ## Part 3. Deployment와 ReplicaSet
-### [6강 ~ 강](lecture/part-3.md)
+### [6강 ~ 8강](lecture/part-3.md)
+
+## Part 4. Service
+### [9강 ~ n강](lecture/part-4.md)

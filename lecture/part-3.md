@@ -143,6 +143,11 @@ kubectl rollout undo deployment/nginx-deployment --to-revision=2
 # 롤백 확인
 kubectl describe deployment nginx-deployment
 ```
+자원 정리
+```bash
+# 이번 강의에서 사용한 Deployment 삭제
+kubectl delete deployment nginx-deployment
+```
 
 ***
 #### [이전 페이지로](https://github.com/hikigirl/bep4-1-k8s-mission)
