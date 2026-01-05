@@ -77,6 +77,47 @@ kubectl get service nginx-nodeport
 curl http://localhost:30080
 ```
 
+### 0011: LoadBalancer Service
+- 로드밸런서: 클라우드 환경에서 외부 로드 밸런서를 자동으로 생성하는 서비스 타입
+- NodePort vs. LoadBalancer
+
+구분|NodePort|LoadBalancer
+---|---|---
+외부 IP|노드 IP 사용|전용 공인 IP 할당
+포트|30000~32767|원하는 포트
+로드밸런싱|클라이언트가 노드 선택|로드밸런서가 분산
+사용 환경|개발/테스트|프로덕션
+
+작업1: LoadBalancer Service 생성
+- `nginx-service-lb.yaml` 생성
+
+작업2: LoadBalancer 접근
+```bash
+# Service 생성
+kubectl apply -f nginx-service-lb.yaml
+
+# Service 확인 (EXTERNAL-IP 확인)
+kubectl get service nginx-lb
+
+# Docker Desktop에서는 localhost로 접근
+# http://localhost:80
+curl http://localhost
+
+# 자세한 정보 확인
+kubectl describe service nginx-lb
+```
+실습 정리
+```bash
+# LoadBalancer Service 삭제
+kubectl delete -f nginx-service-lb.yaml
+# 또는
+kubectl delete service nginx-lb
+
+# 모든 Service와 Deployment 한번에 삭제
+kubectl delete service nginx-service nginx-nodeport nginx-lb
+kubectl delete deployment nginx-deployment
+```
+
 ***
 #### [이전 페이지로](https://github.com/hikigirl/bep4-1-k8s-mission)
 
