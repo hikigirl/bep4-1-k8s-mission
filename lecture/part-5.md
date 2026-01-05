@@ -45,6 +45,26 @@ kubectl delete pod app-pod
 kubectl delete configmap app-config
 ```
 
+### 0013: Secret 사용하기
+Secret vs. ConfigMap
+
+구분|ConfigMap|Secret
+---|---|---
+용도|일반 설정|민감정보
+저장방식|평문|base64 인코딩
+메모리 저장|디스크|tmpfs(메모리, 더 안전)
+
+작업1: secret 생성
+```bash
+# 명령어로 Secret 생성
+kubectl create secret generic db-secret --from-literal=username=admin --from-literal=password=secretpassword123
+# Secret 확인 (base64 인코딩됨)
+kubectl get secret db-secret -o yaml
+# base64 디코딩해서 확인
+kubectl get secret db-secret -o jsonpath='{.data.username}' | base64 -d
+```
+작업3: Secret을 Pod에서 사용
+
 ***
 #### [이전 페이지로](https://github.com/hikigirl/bep4-1-k8s-mission)
 
